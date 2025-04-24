@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DopamineShield Settings</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    header {
+      background: linear-gradient(135deg, #6A11CB 0%, #2575FC 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #555;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-top: 30px;
+    }
+    .site-limits {
+      margin-bottom: 30px;
+    }
+    .site-limit-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+    }
+    .site-logo {
+      width: 24px;
+      height: 24px;
+      margin-right: 15px;
+    }
+    .site-name {
+      flex: 1;
+      font-weight: 500;
+    }
+    .site-limit-input {
+      width: 80px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .options-section {
+      margin-bottom: 30px;
+    }
+    .option-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px 0;
+    }
+    .option-label {
+      flex: 1;
+    }
+    .option-description {
+      color: #777;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .toggle-slider {
+      background-color: #2196F3;
+    }
+    input:checked + .toggle-slider:before {
+      transform: translateX(26px);
+    }
+    .settings-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 10px;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    button.cancel {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    button.cancel:hover {
+      background-color: #e0e0e0;
+    }
+    .status-message {
+      text-align: center;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 4px;
+    }
+    .success {
+      background-color: #dff0d8;
+      color: #3c763d;
+    }
+    .error {
+      background-color: #f2dede;
+      color: #a94442;
+    }
+    .time-input {
+      display: flex;
+      align-items: center;
+    }
+    .time-input input {
+      width: 60px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+      margin-right: 5px;
+    }
+    .time-input span {
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DopamineShield Settings</h1>
+  </header>
+  
+  <div class="container">
+    <div id="status-message" class="status-message" style="display: none;"></div>
+    
+    <h2>Daily Time Limits</h2>
+    <p>Set how much time you want to allow yourself on each site per day.</p>
+    
+    <div class="site-limits" id="site-limits">
+      <!-- Site limits will be dynamically inserted here -->
+      <div class="loading">Loading settings...</div>
+    </div>
+    
+    <h2>Notification Settings</h2>
+    <div class="options-section">
+      <div class="option-item">
+        <div class="option-label">
+          <div>Nudge Frequency</div>
+          <div class="option-description">How often to check in during long sessions</div>
+        </div>
+        <div class="time-input">
+          <input type="number" id="nudge-frequency" min="1" max="60" value="5">
+          <span>minutes</span>
+        </div>
+      </div>
+    </div>
+    
+    <h2>Features</h2>
+    <div class="options-section">
+      <div class="option-item">
+        <div class="option-label">
+          <div>Mindfulness Reminders</div>
+          <div class="option-description">Show breathing exercises after extended usage</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="enable-mindfulness" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      
+      <div class="option-item">
+        <div class="option-label">
+          <div>Focus Mode</div>
+          <div class="option-description">Temporarily block distracting sites during focus sessions</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="enable-focus-mode" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      
+      <div class="option-item">
+        <div class="option-label">
+          <div>Focus Session Duration</div>
+          <div class="option-description">How long each focus session should last</div>
+        </div>
+        <div class="time-input">
+          <input type="number" id="focus-duration" min="5" max="120" value="25">
+          <span>minutes</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="settings-footer">
+      <button id="reset-btn" class="cancel">Reset to Default</button>
+      <button id="save-btn">Save Settings</button>
+    </div>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+</html>

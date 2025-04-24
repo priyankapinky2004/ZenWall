@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DopamineShield</title>
+  <meta charset="UTF-8">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+      --secondary-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      --text-primary: #1E293B;
+      --text-secondary: #64748B;
+      --accent-green: #10B981;
+      --accent-yellow: #F59E0B;
+      --accent-red: #EF4444;
+      --surface-light: #FFFFFF;
+      --surface-dark: #F1F5F9;
+      --border-radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --transition-normal: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      width: 360px;
+      color: var(--text-primary);
+      background: var(--surface-light);
+      overflow: hidden;
+    }
+    
+    header {
+      background: var(--primary-gradient);
+      color: white;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0 0 16px 16px;
+      box-shadow: var(--shadow-md);
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .content {
+      padding: 20px;
+    }
+    
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 10px;
+    }
+    
+    .tab {
+      padding: 8px 16px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 500;
+      transition: var(--transition-normal);
+      border-radius: 20px;
+      font-size: 14px;
+      position: relative;
+    }
+    
+    .tab.active {
+      color: white;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .stat-card {
+      background-color: var(--surface-light);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-normal);
+    }
+    
+    .stat-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .stat-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 15px;
+    }
+    
+    .stat-date {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .usage-bar-container {
+      background-color: var(--surface-dark);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    
+    .usage-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .usage-bar-low {
+      background: linear-gradient(90deg, #10B981, #34D399);
+    }
+    
+    .usage-bar-medium {
+      background: linear-gradient(90deg, #F59E0B, #FBBF24);
+    }
+    
+    .usage-bar-high {
+      background: linear-gradient(90deg, #EF4444, #F87171);
+    }
+    
+    .usage-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    .usage-time {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .usage-limit {
+      font-weight: 500;
+    }
+    
+    .site-list {
+      margin-top: 20px;
+    }
+    
+    .site-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      background-color: var(--surface-light);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-normal);
+    }
+    
+    .site-item:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    
+    .site-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .site-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .youtube-icon { background: linear-gradient(135deg, #FF0000, #FF5252); }
+    .instagram-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .reddit-icon { background: linear-gradient(135deg, #FF4500, #FF6D41); }
+    .facebook-icon { background: linear-gradient(135deg, #1877F2, #3b9aff); }
+    .twitter-icon { background: linear-gradient(135deg, #1DA1F2, #5CBBF6); }
+    .tiktok-icon { background: linear-gradient(135deg, #000000, #25F4EE, #FE2C55); }
+    
+    .site-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .site-usage {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .site-usage-pill {
+      background-color: var(--surface-dark);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .pill-low { background-color: rgba(16, 185, 129, 0.15); color: #10B981; }
+    .pill-medium { background-color: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+    .pill-high { background-color: rgba(239, 68, 68, 0.15); color: #EF4444; }
+    
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      gap: 12px;
+    }
+    
+    button {
+      border: none;
+      padding: 12px 16px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: var(--transition-normal);
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button.focus-mode {
+      background: var(--primary-gradient);
+      color: white;
+    }
+    
+    button.settings {
+      background-color: var(--surface-dark);
+      color: var(--text-primary);
+    }
+    
+    .insights-card {
+      background-color: var(--surface-light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 16px;
+      transition: var(--transition-normal);
+    }
+    
+    .insights-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+    
+    .insights-header {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    
+    .insights-score {
+      text-align: center;
+      font-size: 48px;
+      font-weight: 700;
+      margin: 20px 0;
+      background: var(--primary-gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .insights-tip {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      padding-left: 24px;
+      position: relative;
+    }
+    
+    .insights-tip::before {
+      content: "•";
+      position: absolute;
+      left: 10px;
+      color: #8B5CF6;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-secondary);
+    }
+    
+    .loading-spinner {
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 3px solid #8B5CF6;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* No data state */
+    .no-data {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-secondary);
+    }
+    
+    .no-data-icon {
+      font-size: 36px;
+      margin-bottom: 10px;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DopamineShield</h1>
+    <div class="subtitle">Take control of your digital time</div>
+    
+    <div class="tabs">
+      <div class="tab active" data-tab="today">Today</div>
+      <div class="tab" data-tab="week">This Week</div>
+      <div class="tab" data-tab="insights">Insights</div>
+    </div>
+  </header>
+  
+  <div class="content">
+    <!-- Today Tab -->
+    <div class="tab-content active" id="today-tab">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title">Total Social Media Time</span>
+          <span class="stat-date" id="today-date">Friday, Apr 25</span>
+        </div>
+        <div class="usage-bar-container">
+          <div id="today-usage-bar" class="usage-bar usage-bar-low" style="width: 15%;"></div>
+        </div>
+        <div class="usage-info">
+          <span class="usage-time" id="today-total-time">2 minutes</span>
+          <span class="usage-limit" id="today-limit">/ 130 minutes</span>
+        </div>
+      </div>
+      
+      <div class="site-list" id="today-sites">
+        <div class="site-item">
+          <div class="site-info">
+            <div class="site-icon instagram-icon">IG</div>
+            <div class="site-name">Instagram</div>
+          </div>
+          <div class="site-usage">
+            <span class="site-usage-pill pill-low">1 / 20 min</span>
+          </div>
+        </div>
+        
+        <div class="site-item">
+          <div class="site-info">
+            <div class="site-icon youtube-icon">YT</div>
+            <div class="site-name">YouTube</div>
+          </div>
+          <div class="site-usage">
+            <span class="site-usage-pill pill-low">1 / 30 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Week Tab -->
+    <div class="tab-content" id="week-tab">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title">Weekly Overview</span>
+          <span class="stat-date" id="week-range">Apr 22 - Apr 28</span>
+        </div>
+        <div class="usage-bar-container">
+          <div id="week-usage-bar" class="usage-bar usage-bar-low" style="width: 10%;"></div>
+        </div>
+        <div class="usage-info">
+          <span class="usage-time" id="week-total-time">14 minutes</span>
+          <span class="usage-limit" id="week-limit">/ 910 minutes</span>
+        </div>
+      </div>
+      
+      <div class="site-list" id="week-sites">
+        <div class="site-item">
+          <div class="site-info">
+            <div class="site-icon youtube-icon">YT</div>
+            <div class="site-name">YouTube</div>
+          </div>
+          <div class="site-usage">
+            <span class="site-usage-pill pill-low">8 / 210 min</span>
+          </div>
+        </div>
+        
+        <div class="site-item">
+          <div class="site-info">
+            <div class="site-icon instagram-icon">IG</div>
+            <div class="site-name">Instagram</div>
+          </div>
+          <div class="site-usage">
+            <span class="site-usage-pill pill-low">6 / 140 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Insights Tab -->
+    <div class="tab-content" id="insights-tab">
+      <div class="insights-card">
+        <div class="insights-header">Productivity Score</div>
+        <div class="insights-score" id="productivity-score">93</div>
+        <div class="insights-description">Great job! You're managing your social media usage well.</div>
+      </div>
+      
+      <div class="insights-card">
+        <div class="insights-header">Personalized Tips</div>
+        <div class="insights-tip">Morning productivity is highest when you delay checking social media.</div>
+        <div class="insights-tip">You save about 2 hours daily compared to the average user.</div>
+        <div class="insights-tip">Consider using Focus Mode during your peak productivity hours.</div>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button id="focus-mode-btn" class="focus-mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="6" x2="12" y2="12"></line>
+          <line x1="12" y1="12" x2="16" y2="16"></line>
+        </svg>
+        Start Focus Mode
+      </button>
+      <button id="settings-btn" class="settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        Settings
+      </button>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
