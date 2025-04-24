@@ -26,31 +26,31 @@
 
 ### ⏱️ Focus Timer Overlay on Instagram
 
-<img src="images/insta.png" alt="Focus Timer" width="600">
+<img src="images/insta.png" alt="Focus Timer" width="300">
 
 ### 📂 manifest.json Configuration
 
-<img src="images/folder.png" alt="manifest.json" width="600">
+<img src="images/folder.png" alt="manifest.json" width="300">
 
 ### 🧘 Mindful Breathing Prompt
 
-<img src="images/mind.png" alt="Mindful Breathing" width="600">
+<img src="images/mind.png" alt="Mindful Breathing" width="300">
 
 ### ⚙️ Daily Limit Settings
 
-<img src="images/setting.png" alt="Settings" width="600">
+<img src="images/setting.png" alt="Settings" width="300">
 
 ### 📊 Weekly Productivity Overview
 
-<img src="images/week.png" alt="Weekly Insights" width="600">
+<img src="images/week.png" alt="Weekly Insights" width="300">
 
 ### ⚙️ Extension Display
 
-<img src="images/extension.png" alt="Extension Display" width="600">
+<img src="images/extension.png" alt="Extension Display" width="300">
 
 ### ⏱️ Productivity Score
 
-<img src="images/productivity.png" alt="Weekly Insights" width="600">
+<img src="images/productivity.png" alt="Weekly Insights" width="300">
 
 ---
 
