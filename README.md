@@ -54,36 +54,6 @@
 
 ---
 
-#### ⏱️ Focus Timer Overlay on Instagram
-
-<img src="images/insta.png" alt="Focus Timer" width="600">
-
-### 📂 manifest.json Configuration
-
-<img src="images/folder.png" alt="manifest.json" width="600">
-
-### 🧘 Mindful Breathing Prompt
-
-<img src="images/mind.png" alt="Mindful Breathing" width="600">
-
-### ⚙️ Daily Limit Settings
-
-<img src="images/setting.png" alt="Settings" width="600">
-
-### 📊 Weekly Productivity Overview
-
-<img src="images/week.png" alt="Weekly Insights" width="600">
-
-### ⚙️ Extension Display
-
-<img src="images/extension.png" alt="Extension Display" width="600">
-
-### ⏱️ Productivity Score
-
-![Weekly Insights](images/productivity.png)
-
----
-
 ## 📥 Cloning & Installation
 
 Follow these steps to clone and use **ZenWall**:
