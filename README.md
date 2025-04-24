@@ -10,35 +10,50 @@
 - ⏳ **Movable Focus Timer** – Start a session and keep the floating timer window where you like.
 - 🎯 **Focus Sessions (Pomodoro Mode)** – Stay disciplined with structured work/break cycles.
 - ⚙️ **Custom Settings** – Personalize blocked sites, timer durations, and UI preferences.
-- 📊 *(Coming Soon)* **Productivity Stats Dashboard**
+- 📊 _(Coming Soon)_ **Productivity Stats Dashboard**
 
 ---
 
 ## 🛠️ Tech Stack
 
-- HTML, CSS, JavaScript  
-- Chrome Extension APIs  
+- HTML, CSS, JavaScript
+- Chrome Extension APIs
 - Modular UI components
 
 ---
+
 ## 📸 Screenshots
 
-### ⏱️ Focus Timer Overlay on Instagram  
-![Focus Timer](images/instagram_overlay.png)
+### ⏱️ Focus Timer Overlay on Instagram
 
-### 📂 manifest.json Configuration  
-![manifest.json](images/manifest_code.png)
+![Focus Timer](images/insta.png)
 
-### 🧘 Mindful Breathing Prompt  
-![Mindful Breathing](images/mindful_breathing.png)
+### 📂 manifest.json Configuration
 
-### ⚙️ Daily Limit Settings  
-![Settings](images/settings_ui.png)
+![manifest.json](images/folder.png)
 
-### 📊 Weekly Productivity Overview  
-![Weekly Insights](images/weekly_overview.png)
+### 🧘 Mindful Breathing Prompt
+
+![Mindful Breathing](images/mind.png)
+
+### ⚙️ Daily Limit Settings
+
+![Settings](images/setting.png)
+
+### 📊 Weekly Productivity Overview
+
+![Weekly Insights](images/week.png)
+
+### ⚙️ Extension Display
+
+![Weekly Insights](images/extension.png)
+
+### ⏱️ Productivity Score
+
+![Weekly Insights](images/productivity.png)
 
 ---
+
 ## 📥 Cloning & Installation
 
 Follow these steps to clone and use **ZenWall**:
@@ -47,3 +62,4 @@ Follow these steps to clone and use **ZenWall**:
    ```bash
    git clone https://github.com/priyankapinky2004/ZenWall.git
    cd zenwall
+   ```
